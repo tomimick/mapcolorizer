@@ -1,0 +1,89 @@
+
+/* CSS for the mapcolorizer.js */
+
+/* area name on map */
+.mapcolorizer .areaname {
+    color: #000;
+    font-size: 11px;
+    text-shadow: 0px 1px 2px #fff;
+    left: -10px;
+    pointer-events: none;
+}
+
+/* area name on hover */
+.mapcolorizer .areanamehover {
+    color: #000;
+    font-size: 18px;
+    text-shadow: 0px 2px 1px #fff;
+
+    top: -40px;
+    left: -40px;
+    pointer-events: none;
+}
+.mapcolorizer .areanamehover span {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0 4px;
+    box-shadow: 1px 1px 3px #555;
+    white-space: nowrap;
+}
+
+
+/* legend box, showing colors */
+.mapcolorizer .info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65098);
+    cursor: pointer;
+}
+.mapcolorizer .info:hover {
+    background: #eee;
+}
+.mapcolorizer .info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.mapcolorizer .legend {
+    text-align: left;
+    line-height: 18px;
+    color: #555;
+}
+.mapcolorizer .legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* zoom to fit control */
+.mapcolorizer .info.zoomfit {
+    -webkit-user-select: none;
+}
+/* fullscreen control */
+.mapcolorizer .info.full >span {
+    -webkit-user-select: none;
+    font-size: large;
+    display: block;
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+}
+
+/* loading data state */
+.mapcolorizer.wait {
+    opacity: 0.7;
+}
+
+.mapcolorizer.fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border: 0 !important;
+    z-index: 20000;
+}
+
