@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Kuntakartta data ja koodi</title>
+        <meta name="description" content="Interactive Javascript map of Finish
+            communes; Leaflet, GeoJSON, MapQuest, OpenStreetmap,
+            Maanmittauslaitos">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="img/favicon.ico" />
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/h5main.css">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/mapcolorizer.css">
+
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+        <a href="https://github.com/tomimick/mapcolorizer"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
+        <h1>Kuntakartta &mdash; data ja koodi</h1>
+
+        <p>Kuntakartta.org on rakennettu hyödyntäen avointa dataa ja koodia.
+
+        Avoin data on peräisin
+        <a href="http://tilastokeskus.fi/tup/kunnat/">tilastokeskukselta</a>,
+        <a href="http://www.kunnat.net/">Suomen kuntaliitosta</a> ja
+        <a href="http://www.maanmittauslaitos.fi/">Maanmittauslaitokselta</a>.  </p>
+
+        <p>Koodi on rakennettu avoimen Javascript karttamoottorin,
+        <a href="http://leafletjs.com/">LeafLetin</a> päälle.</p>
+
+        <p>Data ja koodi löytyvät <a href="https://github.com/tomimick/mapcolorizer">GitHubista</a> ja ovat helposti uudelleenkäytettävissä muissa
+        sivustoissa.
+        Komponentilla on pieni API rajapinta jolla sen toimintaa
+        ohjataan. Alla muutama esimerkki.</p>
+
+
+        <h2>Kuntien koordinaatit</h2>
+
+        <p>Kuntien rajakoordinaatit ovat alunperin peräisin
+        Maanmittauslaitoksen avoimesta datasta jonka
+        <a href="http://datajournalismi.blogspot.fi/2013/02/suomen-kuntarajat-2013-kml-formaatissa.html">YLEn tiimi muunsi Googlen KML formaattiin</a> ja
+        julkisti blogissaan. Kiitokset heille.</p>
+
+        <p>Minä työstin edelleen KML-tiedoston avoimeen GeoJSON formaattiin
+        joka on yleistymässä kovaa vauhtia sen helppokäyttöisyyden vuoksi web
+        ympäristössä.</p>
+
+        <p>Kaikki <a href="https://github.com/tomimick/mapcolorizer/tree/master/data-finland/data/">Suomen 320 kuntaa GeoJSON formaatissa</a> löytyy
+        GitHubista. Tiedosto on minifoituna 2.2MB, gzipattuna 645KB. Samasta
+        hakemistosta löytyy esimerkkinä myös GeoJSON vain uudenmaan ja
+        varsinaissuomen kunnista.</p>
+
+
+        <h2>Tilastodata</h2>
+
+        <p>Tilastodata on haettu kuntaliitosta ja tilastokeskukselta .csv ja
+        .xsl formaatissa ja muunnettu Python-skriptillä sopivaan JSON muotoon.
+        Raaka-data ja conv.py skripti löytyvät GitHubista.</p>
+
+        <p>Jokaiselle vuodelle ja datatyypille on yksi datatiedosto jossa on
+        yksi JSON-olio joka sisältää yhden arvon jokaiselle kunnalle. Kunnat
+        identifioidaan kuntaliiton antamilla <a
+        href="https://www.tilastokeskus.fi/meta/luokitukset/kunta/001-2013/index.html">koodeilla</a> joihon on liitetty etuliite "area".
+    Tässä esimerkkinä vuoden <a href="https://github.com/tomimick/mapcolorizer/tree/master/data-finland/data/2014-tulovero.json">2014 tuloverodata</a>.</p>
+
+        <p>kuntakartta.org palvelussa on muutama hyödyllinen tilasto. Jos joku
+        innostuu luomaan lisää dataa, otan niitä vastaan JSON muodossa. Uuden
+        datan pohja löytyy <a href="https://github.com/tomimick/mapcolorizer/tree/master/data-finland/data/0000-esimerkkidata.json">tässä</a>. Jokainen oikeanpuolimmainen
+        arvo, eli kunnan nimi, korvataan data-arvolla.</p>
+
+
+        <h2>Taustakuva</h2>
+
+        <p>Toisin kuin Google Maps, Leaflet sallii vapauksia taustan suhteen.
+        Tausta voi olla tyhjä tai sinne voidaan laittaa vain staattinen kuva.
+        Tällä voidaan keskittää huomio vain kuntapolygoneihin. Tämä ratkaisu
+        toimii myös offline tilassa koska palvelin-riippuvuutta ei ole.</p>
+
+        <p>Varsinaisista karttapalvelimista sivulla demotaan
+        <a href="http://www.mapquest.com/">MapQuestia</a>,
+        <a href="http://www.openstreetmap.org/">OpenStreetMapia</a> ja
+        <a href="http://kartat.kapsi.fi/">kartat.kapsi.fi</a> palvelua.
+        kartat.kapsi.fi on palvelu joka jakaa Maanmittauslaitoksen avointa
+        datamateriaalia suoraan ilman hakemusten täyttöä. Suurta kaistaa
+        kannattaa välttää koska kyse on harrastajapalvelusta.</p>
+
+        <p>Esivalittu karttatausta on MapQuest koska se tarjoaa
+        eniten
+        <a href="http://developer.mapquest.com/web/products/open/map">
+        ilmaista kaistaa</a>. </p>
+
+        <p>Esimerkin vuoksi voi myös valita staattisen kuvan. Kuva on
+        koostettu käsin Maanmittauslaitoksen karttadatasta kartat.kapsi.fi
+        palvelusta.</p>
+
+
+
+        <h2>Koodi</h2>
+
+        <p>Taustakartan päälle polygoneja värittävä koodikomponentti on
+        <a href="https://github.com/tomimick/mapcolorizer/tree/master/mapcolorizer.js">mapcolorizer.js</a>.</p>
+
+        <p>Komponentin käyttö omalla sivulla on helppoa. Lue GitHubin
+        englanninkieliset ohjeet ja katso alla olevat Suomi esimerkit miten
+        komponenttia voi soveltaa.</p>
+
+
+
+        <h2>Esimerkki 1: Suomen kunnat, tulovero 2014</h2>
+
+        <p>Suomen kunnat ja niiden tuloveroprosentit vuonna 2014.
+        Taustakarttana ilmainen MapQuest.</p>
+
+        <script src="https://gist.github.com/tomimick/7578811.js"></script>
+
+        <div id="map1" class="case"></div>
+
+
+
+        <h2>Esimerkki 2: Uusimaa omalla datalla ja värillä</h2>
+
+        <p>Uudenmaan kunnat, oma datasetti ja oma väriskaala.
+        Nimet näytetään kartalla. Ei taustakuvaa.</p>
+
+        <script src="https://gist.github.com/tomimick/7579238.js"></script>
+
+        <div id="map2" class="case"></div>
+
+
+
+        <h2>Esimerkki 3: Metropolialueen vaihtoehdot</h2>
+
+        <p>Tässä kuvitteellinen esimerkki pääkaupunkiseudun mahdollisista
+        kuntaliitosselvityksistä.  Koko Uudestamaasta valitaan halutut kunnat
+        jotka väritetään omalla värillä asettamalla style_func parametri.
+        </p>
+
+        <script src="https://gist.github.com/tomimick/7579264.js"></script>
+
+        <div id="map3" class="case"></div>
+
+        <p>Valitse vaihtoehto: <a href="#" data-opt="1">1</a>,
+            <a href="#" data-opt="2">2</a> tai
+            <a href="#" data-opt="3">3</a></p>
+
+
+
+
+        <h2>Palaute</h2>
+
+        <p>Ongelmia voi raportoida GitHubin
+        <a href="https://github.com/tomimick/mapcolorizer/issues">Issue
+        työkalulla</a>. Tai mieluusti lähetä parannettua koodia kehiin.</p>
+
+
+        <p><a href="/">Takaisin</a></p>
+
+
+        <div id="footer">
+            <p>Tämän sivun on kehittänyt
+            <a href="http://tomicloud.com">Tomi Mickelsson</a>.</p>
+
+            <p>Sivu päivitetty: 21.11.2013</p>
+        </div>
+
+
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+         <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/mapcolorizer.js"></script>
+        <script src="js/dev.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45920858-1', 'kuntakartta.org');
+  ga('send', 'pageview');
+</script>
+
+    </body>
+</html>
+

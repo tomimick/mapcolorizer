@@ -1,0 +1,126 @@
+
+/* kuntakartta.org */
+
+html {
+/*    background: #eee;*/
+}
+
+body {
+/*    border: 1px solid #aaa;*/
+    background: #fff;
+    padding: 1em;
+    font-family: Verdana, Geneva, sans-serif;
+}
+body.ready .spinner {
+    display: none;
+}
+
+@media only screen and (min-width: 1000px) {
+    body {
+        margin: 0 auto;
+        width: 80%;
+    }
+}
+
+h1 {
+    margin: 0;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+#footer {
+    margin-top: 4em;
+/*    background: #f5f5f5;*/
+    padding: 1em;
+    text-align: center;
+/*    border-top: 2px solid #aaa;*/
+    font-size: 12px;
+    color: #aaa;
+}
+
+#footer a {
+    color: #444;
+}
+
+#map {
+    height: 600px;
+    width: 100%;
+/*    background: #B3E6FA;*/
+    background: #EDF6FF;
+/*    box-shadow: 1px 1px 6px #aaa;*/
+    border: 1px solid #4747D5;
+    margin: 1em 0;
+}
+
+select {
+    margin-right: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+#errtxt {
+    color: red;
+}
+
+.wait {
+    cursor: wait;
+}
+
+label {
+    margin-left: 20px;
+/*    color: #00e;*/
+}
+
+#dmin {
+    color: #006400;
+}
+#dmax {
+    color: #8b0000;
+}
+
+#legend {
+    float: right;
+    margin: 0;
+    text-align: right;
+    width: 40%;
+    color: #777;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#socbuttons {
+    float: right;
+    width: 50%;
+    text-align: right;
+/*    margin-right: -40px;*/
+}
+
+
+
+/* dev.html */
+
+.case {
+    height: 300px;
+    width: 100%;
+    background: #EDF6FF;
+    border: 1px solid #ccf;
+}
+
+h2 {
+    margin-top: 2em;
+}
+
+#map3 {
+    background: #FFf0c2;
+}
+
+a[data-opt] {
+    background: #ddf;
+    padding: 3px 15px;
+    text-decoration: none;
+}
+
