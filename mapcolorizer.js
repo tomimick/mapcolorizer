@@ -266,7 +266,8 @@
 
         // find min,max,avg values from loaded data set
         function calculate_bounds(data) {
-            var min = 1000, max = -1000, count = 0, sum = 0;
+            var min = 1000000000, max = -1000000000, count = 0, sum = 0;
+            self.dataavg = 0;
             for (i in data) {
                 if (data.hasOwnProperty(i)) {
                     var d  = parseFloat(data[i]);
@@ -283,7 +284,7 @@
             }
             self.datamin = min;
             self.datamax = max;
-            self.dataavg = parseFloat(sum/count).toFixed(2);
+            self.dataavg = count ? parseFloat(sum/count).toFixed(2) : 0;
 
             console.debug("bounds: " + self.datamin + " - " + self.datamax +
                          " avg: " + self.dataavg);
@@ -371,8 +372,10 @@
             self.$elem.removeClass("wait");
 
             // provide bounds to app
-            if (cb)
+            if (cb && self.dataavg)
                 cb({min:self.datamin, max:self.datamax, avg:self.dataavg});
+            else
+                cb({min:-1, max:-1, avg:-1});
 
             // update names
             if (self.namegroup)

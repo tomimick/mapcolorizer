@@ -4,6 +4,7 @@
 (function($) {
 
     var map;
+    var json_dropped;
 
     $(document).ready(function() {
         main();
@@ -64,6 +65,8 @@
 
             load_data();
         });
+
+        set_drop_target();
     }
 
     // load json data depending on select#dataset value
@@ -85,6 +88,11 @@
         else
             fname = "data/" + fname + ".json";
 
+        if (json_dropped) {
+            fname = json_dropped;
+            json_dropped = null;
+        }
+
         map.loadData(fname, function(bounds){
             $("#dmin").text(bounds.min);
             $("#dmax").text(bounds.max);
@@ -101,6 +109,42 @@
         if (h < 300)
             h = 300;
         $("#map").height(h);
+    }
+
+    // .json files dropped into map area loaded too
+    function set_drop_target() {
+
+        var doc = $("#map").get(0);
+
+        doc.ondragover = function (e) {
+            console.debug("ondragover");
+            $(this).addClass("filedrop");
+            e.preventDefault();
+            return false;
+        };
+        doc.ondrop = function(e) {
+            console.debug("ondrop");
+            $(this).removeClass("filedrop");
+
+            var file = e.dataTransfer.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                console.log("onload", event.target);
+
+                // try parsing the json
+                try {
+                    json_dropped = $.parseJSON(reader.result);
+                } catch (e) {
+                    $("#errtxt").show();
+                    return;
+                }
+                load_data();
+            };
+            reader.readAsText(file);
+            e.preventDefault();
+            return false;
+        };
     }
 
 })(jQuery);
