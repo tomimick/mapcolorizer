@@ -166,7 +166,7 @@ The plugin provides the following API:
 // Initialize the plugin. Callback is called when geojson is loaded.
 function init(cb) {}
 
-// Load JSON data. If data is a string, it is an URL to the GeoJSON
+// Load JSON data. If data is a string, it is an URL to the JSON
 // file to be loaded. If data is an object, it is used directly.
 // Callback is called when data is loaded.
 function loadData(data, cb) {}
