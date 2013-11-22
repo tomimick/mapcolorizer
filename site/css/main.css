@@ -109,6 +109,19 @@ label {
     background: #EDF6FF;
     border: 1px solid #ccf;
 }
+.case > a.demo {
+    display: block;
+    text-align: center;
+    margin: 30px auto;
+    width: 30%;
+    background: #33a;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+.case >a.demo:hover {
+    background: #55f;
+}
 
 h2 {
     margin-top: 2em;

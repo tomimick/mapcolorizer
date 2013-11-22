@@ -8,9 +8,24 @@
     });
 
     function main() {
-        case1();
-        case2();
-        case3();
+//        case1();
+//        case2();
+//        case3();
+
+        // run on demand
+        $(".case").append("<a href='#' class='demo'>Demo</a>");
+        $(".case .demo").click(function(){
+            var id = $(this).parent().attr("id");
+            $(this).remove();
+
+            if (id == "map1")
+                case1();
+            else if (id == "map2")
+                case2();
+            else
+                case3();
+            return false;
+        });
     }
 
     function case1() {
