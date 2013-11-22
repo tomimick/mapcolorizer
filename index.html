@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Kuntakartta - Kuntien tilastot kartalla</title>
+        <meta name="description" content="Interactive Javascript map of Finish
+            communes; Leaflet, GeoJSON, MapQuest, OpenStreetmap,
+            Maanmittauslaitos">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="img/favicon.ico" />
+
+        <!-- http://www.designcouch.com/home/why/2013/05/23/dead-simple-pure-css-loading-spinner/ -->
+        <style>
+            .spinner {
+                display:inline-block;
+
+                height:20px; width:20px;
+                -webkit-animation: rotation .6s infinite linear;
+                -moz-animation: rotation .6s infinite linear;
+                -o-animation: rotation .6s infinite linear;
+                animation: rotation .6s infinite linear;
+                border-left:6px solid #ccf;
+                border-right:6px solid #ccf;
+                border-bottom:6px solid #ccf;
+                border-top:6px solid #55f;
+                border-radius:100%;
+            }
+            @-webkit-keyframes rotation {
+                from { -webkit-transform: rotate(0deg); }
+                to { -webkit-transform: rotate(359deg); }
+            }
+            @-moz-keyframes rotation {
+                from { -moz-transform: rotate(0deg); }
+                to { -moz-transform: rotate(359deg); }
+            }
+            @-o-keyframes rotation {
+                from { -o-transform: rotate(0deg); }
+                to { -o-transform: rotate(359deg); }
+            }
+            @keyframes rotation {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(359deg); }
+            }
+        </style>
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/h5main.css">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/mapcolorizer.css">
+
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+
+        <div id="socbuttons">
+<div class="fb-like" data-href="http://kuntakartta.org/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+&nbsp;&nbsp;
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kuntakartta.org" data-text="Suomen kunnat visualisoituna kartalle" data-lang="fi">Twiittaa</a>
+        </div>
+
+        <h1>Kuntakartta &nbsp;<span class="spinner"></span></h1>
+
+        <p>Suomen kuntien rajat ja tilastoja visualisoituna kartalle.
+        </p>
+
+        <p>
+        <select id="dataset">
+            <option value="#none"> </option>
+            <option value="#2014-tulovero">Tuloveroprosentti 2014</option>
+            <option value="#2013-tulovero">Tuloveroprosentti 2013</option>
+            <option value="#2012-tulovero">Tuloveroprosentti 2012</option>
+            <option value="#2001-tulovero">Tuloveroprosentti 2001</option>
+            <option value="#20132014-tulovero">Tuloveromuutos 2013-2014</option>
+            <option value="#20122013-tulovero">Tuloveromuutos 2012-2013</option>
+            <option value="#20012013-tulovero">Tuloveromuutos 2001-2013</option>
+            <option value="#2012-vakiluku">Väkiluku 2012</option>
+            <option value="#2012-muuttovoitto">Muuttovoitto 2012</option>
+            <option value="#2011-tulot">Tulot 2011</option>
+            <option value="#2011-tyottomyys">Työttömyys 2011</option>
+            <option value="#2011-elakelaisia">Eläkeläisiä 2011</option>
+        </select>
+
+        &nbsp;
+        Min: <b id="dmin">0</b>,
+        max: <b id="dmax">0</b>,
+        keskiarvo: <b id="davg">0</b>
+
+        <label><input id="names" type="checkbox"/> Kuntien nimet</label>
+        </p>
+
+        <p class="hide" id="errtxt">Latausvirhe!</p>
+
+
+        <!-- the map appears here -->
+        <div id="map"></div>
+
+
+        <p id="legend">Väritys on suhteellinen: vihreä väri
+        keskiarvoa pienempi, punainen väri keskiarvoa suurempi.
+        </p>
+
+        <p>Tausta:&nbsp;
+        <select id="overlaytype">
+            <option value="">Tyhjä</option>
+            <option value="mapquest">MapQuest karttapalvelin</option>
+            <option value="osm">OpenStreetMap karttapalvelin</option>
+            <option value="kapsi.fi">Maanmittauslaitoksen data, kartat.kapsi.fi palvelin</option>
+            <option value="img">Maanmittauslaitoksen yleiskartta, ei
+            palvelinta</option>
+        </select>
+        </p>
+
+
+        <div id="footer">
+            <p>Tämän sivun on kehittänyt
+            <a href="http://tomicloud.com">Tomi Mickelsson</a>.
+            Sivu hyödyntää avointa
+           <a href="dev.html">dataa ja koodia</a>.</p>
+
+           <p>Puuttuuko dataa? Lataa <a href="https://raw.github.com/tomimick/mapcolorizer/master/data-finland/data/0000-esimerkkidata.json">datatiedosto</a>,
+           täytä numeroilla ja pudota kartan päälle.</p>
+
+            <p>Sivu päivitetty: 22.11.2013</p>
+        </div>
+
+
+         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+         <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/mapcolorizer.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- twitter + fb buttons -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1409307999306498";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+        <!-- google analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45920858-1', 'kuntakartta.org');
+  ga('send', 'pageview');
+</script>
+
+    </body>
+</html>
+
