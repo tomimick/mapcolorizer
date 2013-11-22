@@ -2,8 +2,8 @@ mapcolorizer.js
 ===============
 
 mapcolorizer.js is a Javascript jQuery plugin that produces an interactive
-choropleth map: colorized polygons on top of a map. User may zoom and pan the
-map, highlight polygons.
+choropleth map: colorized polygons on top of a map that user can interact
+with.
 
 The plugin depends on jQuery and [Leaflet](http://leafletjs.com/).
 
@@ -15,7 +15,11 @@ displays statistical data of 320 communes of Finland. The site is only in
 Finnish.
 
 The full sources to the demo site appear in the
-[site](https://github.com/tomimick/mapcolorizer/tree/master/site/) folder.
+[site](https://github.com/tomimick/mapcolorizer/tree/master/site/) folder. The
+site can be run locally with the Python script `run-wwwserver.sh` in the site
+folder.
+
+![Screenshot](https://raw.github.com/tomimick/mapcolorizer/master/screenshot.png)
 
 
 # Features
