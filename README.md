@@ -8,7 +8,7 @@ with.
 The plugin depends on jQuery and [Leaflet](http://leafletjs.com/).
 
 
-# Demo
+## Demo
 
 See plugin live at [kuntakartta.org](http://kuntakartta.org) - the site
 displays statistical data of 320 communes of Finland. The site is only in
@@ -22,7 +22,7 @@ folder.
 ![Screenshot](https://raw.github.com/tomimick/mapcolorizer/master/screenshot.png)
 
 
-# Features
+## Features
 
   * GeoJSON polygon data.
   * JSON statistical data.
@@ -35,7 +35,7 @@ folder.
   * Customizable via creation options.
   * Plus features of [Leaflet](http://leafletjs.com/features.html).
 
-# Basic usage
+## Basic usage
 
 In your HTML, include the required CSS and Javascript files:
 
@@ -67,7 +67,7 @@ map.init(function() {
 ```
 
 
-# GeoJSON polygons
+## GeoJSON polygons
 
 The polygon coordinates are feeded in as GeoJSON.
 [GeoJSON](http://geojson.org/) is a simple, popular format based on JSON that
@@ -80,7 +80,7 @@ must be a string. This identifier is used to link the polygon to the
 statistical data.  The name displayed on hover comes from `properties.name`.
 
 
-# Map images and tiles
+## Map images and tiles
 
 Leaflet provides good support for various types of map backgrounds.  The map
 can contain just the polygons and no background. Or the map can have a single
@@ -95,7 +95,7 @@ The third option is to use a real tile server. Popular options are
 services may require licensing.
 
 
-# Statistical data
+## Statistical data
 
 The statistical data is also in JSON format but separate from the coordinate
 data. It's a simple JSON object that has a `code` and value for each polygon.
@@ -117,7 +117,7 @@ Sample data file:
 }
 ```
 
-# Color scheme
+## Color scheme
 
 The coloring routine is simple: when the data is loaded, the plugin calculates
 the min/max/avg of the data and scales the data range over the given color
@@ -136,7 +136,7 @@ and improve it!
 
 
 
-# Options
+## Options
 
 Here are the options that can be given during map creation:
 
@@ -158,7 +158,7 @@ var defaults = {
 };
 ```
 
-# API
+## API
 
 The plugin provides the following API:
 
@@ -203,7 +203,7 @@ function getSelf() {}
 Style options are document [here](http://leafletjs.com/reference.html#path).
 
 
-# Data-finland
+## Data-finland
 
 This folder contains GeoJSON polygon data for Finland's 320 communes, and
 various statistical data in raw and JSON format.
@@ -212,7 +212,7 @@ various statistical data in raw and JSON format.
 the raw .csv data to JSON format.
 
 
-# Browser support
+## Browser support
 
 The plugin should have the same browser support as
 [Leaflet](http://leafletjs.com/features.html).
