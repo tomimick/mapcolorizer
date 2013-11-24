@@ -9,6 +9,7 @@
             Maanmittauslaitos">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" href="img/favicon.ico" />
+        <meta property="og:image" content="http://kuntakartta.org/img/screenshot.png"/>
 
         <!-- http://www.designcouch.com/home/why/2013/05/23/dead-simple-pure-css-loading-spinner/ -->
         <style>
@@ -56,7 +57,7 @@
         <div id="socbuttons">
 <div class="fb-like" data-href="http://kuntakartta.org/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 &nbsp;&nbsp;
-<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kuntakartta.org" data-text="Suomen kunnat visualisoituna kartalle" data-lang="fi">Twiittaa</a>
+<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://kuntakartta.org" data-text="Visualisoi kuntien tilastoja kartalle #avoindata" data-lang="fi">Twiittaa</a>
         </div>
 
         <h1>Kuntakartta &nbsp;<span class="spinner"></span></h1>
@@ -93,7 +94,7 @@
 
 
         <!-- the map appears here -->
-        <div id="map"></div>
+        <div id="map" class="animstart"></div>
 
 
         <p id="legend">Väritys on suhteellinen: vihreä väri
@@ -121,7 +122,7 @@
            <p>Puuttuuko dataa? Lataa <a href="https://raw.github.com/tomimick/mapcolorizer/master/data-finland/data/0000-esimerkkidata.json">datatiedosto</a>,
            täytä numeroilla ja pudota kartan päälle.</p>
 
-            <p>Sivu päivitetty: 22.11.2013</p>
+            <p>Sivu päivitetty: 24.11.2013</p>
         </div>
 
 

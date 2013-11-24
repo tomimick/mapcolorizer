@@ -104,7 +104,19 @@ label {
     box-shadow: 0px 0px 20px #7f7;
 }
 
+#map.animstart g {
+    -webkit-transform: translate(600px,0);
+    -webkit-transition: 1s -webkit-transform;
+    -webkit-transition-timing-function: ease-out;
+    -moz-transform: translate(600px,0);
+    -moz-transition: 1s -moz-transform;
+    -moz-transition-timing-function: ease-out;
+}
 
+#map.animend g {
+    -webkit-transform: translate(0,0);
+    -moz-transform: translate(0,0);
+}
 
 /* dev.html */
 

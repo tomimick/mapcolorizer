@@ -4,7 +4,6 @@
 (function($) {
 
     var map;
-    var json_dropped;
 
     $(document).ready(function() {
         main();
@@ -54,12 +53,11 @@
             load_data();
         });
 
-        var options = {url_geoson: "data/kuntarajat.geojson"};
+        var options = {url_geoson: "data/kuntarajat-ok.geojson"};
         map = $("#map").mapcolorizer(options).data("mapcolorizer");
         map.init(function() {
 
-            $("#overlaytype option[value=mapquest]").prop('selected', true);
-            $("#overlaytype").change();
+            //select_tile_server();
 
             map.refresh();
 
@@ -70,7 +68,7 @@
     }
 
     // load json data depending on select#dataset value
-    function load_data() {
+    function load_data(json_dropped) {
         var h = window.location.hash;
         if (!h)
             h = "#2014-tulovero";
@@ -100,6 +98,8 @@
 
             // remove spinner
             $("body").addClass("ready");
+
+            animate_pieces();
         });
     }
 
@@ -135,16 +135,43 @@
                 // try parsing the json
                 try {
                     json_dropped = $.parseJSON(reader.result);
+                    load_data(json_dropped);
                 } catch (e) {
                     $("#errtxt").show();
-                    return;
                 }
-                load_data();
             };
             reader.readAsText(file);
             e.preventDefault();
             return false;
         };
+    }
+
+    // animate areas in if first time + load tiles
+    var firsttime = true;
+    function animate_pieces() {
+        if (!firsttime)
+            return;
+
+        firsttime = false;
+        $("#map g").each(function(i){
+            var t = $(this);
+            t.css("webkitTransitionDelay", Math.random()+"s");
+            t.css("TransitionDelay", Math.random()+"s");
+        });
+        $("#map").addClass("animend");
+
+        setTimeout(function() {
+            // remove anim styles just in case
+            $("#map").removeClass("animstart animend");
+
+            // finally load tiles
+            select_tile_server();
+        }, 2000);
+    }
+
+    function select_tile_server() {
+        $("#overlaytype option[value=mapquest]").prop('selected', true);
+        $("#overlaytype").change();
     }
 
 })(jQuery);
