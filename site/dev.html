@@ -51,12 +51,18 @@
         ympäristössä.</p>
 
         <p>Kaikki <a href="https://github.com/tomimick/mapcolorizer/tree/master/data-finland/data/">Suomen 320 kuntaa GeoJSON muodossa</a> löytyy
-        GitHubista (kuntarajat.geoson). Tiedosto on minifoituna 2.2MB, gzipattuna 645KB. Samasta
-        hakemistosta löytyy esimerkkinä myös GeoJSON vain uudenmaan ja
-        varsinaissuomen kunnista.</p>
+        GitHubista. Suurimmassa tiedostossa, <b>kuntarajat.geoson</b>, 2.2MB, on
+        kaikki YLEn KML-tiedostoon keräämät pienet saaretkin. Polygonien
+        lukumäärä on tässä hurjat 4763 kappaletta.
+        Tämän tiedoston käyttö kartassa onnistuu, mutta kartta on suhteellisen
+        hidas. Kartan nopeuttamiseksi riisuin skriptillä pienemmät saaret pois,
+        tiedosto <b>kuntarajat-ok.geoson</b>, 1MB (gzipattuna 332KB),
+        jolloin polygonien lukumääräksi
+        tuli 421 kappaletta. Tämä tiedosto on käytössä tässä palvelussa.</p>
 
-        <p>Rajakunnissa on mukana saaret jotka kasvattavat polygonien
-        lukumäärää ja tuovat siten hieman hitautta visualisointiin.</p>
+        <p>Samasta hakemistosta löytyy esimerkkinä myös GeoJSON vain uudenmaan
+        ja varsinaissuomen kunnista, kaikilla niiden saarilla.</p>
+
 
 
         <h2>Tilastodata</h2>
@@ -78,6 +84,9 @@
 
         <p>Omien datatiedostojen kokeilu on helppoa: vedä ja pudota tiedosto
         kartan päälle. (Ei toimi IE9 tai vanhemmassa selaimessa.)</p>
+
+        <p>Väritysrutiini on todennäköisesti varsin primitiviinen, joten
+        viisaammat voivat kehittää sitä paremmaksi.</p>
 
 
         <h2>Taustakuva</h2>
@@ -171,7 +180,7 @@
             <p>Tämän sivun on kehittänyt
             <a href="http://tomicloud.com">Tomi Mickelsson</a>.</p>
 
-            <p>Sivu päivitetty: 22.11.2013</p>
+            <p>Sivu päivitetty: 24.11.2013</p>
         </div>
 
 

@@ -89,6 +89,53 @@ def build_geojson(arealist, fname):
     write_file(fname, obj)
 
 
+# cut small islands away from 2.2MB kuntarajat.geojson
+def cut_islands():
+    obj = json.load(open("../data/kuntarajat.geojson"))
+
+    MIN_POLYGON_SIZE = 0.001
+
+    count = 0
+    newcount = 0
+    for m in obj["features"]:
+        name = m["properties"]["name"]
+        typ = m["geometry"]["type"]
+        print name, m["type"], typ
+        if typ == "GeometryCollection":
+            alist = m["geometry"]["geometries"]
+#             for x in alist:
+#                 print x["type"]
+            print "  ",  len(alist)
+            count += len(alist)
+            newlist = []
+            for x in alist:
+                area = polygon_area(x["coordinates"][0])
+                if area > MIN_POLYGON_SIZE:
+                    print name, area
+                    newlist.append(x)
+                    newcount += 1
+            if not newlist:
+                print "all commune islands too small!", name
+                return
+            m["geometry"]["geometries"] = newlist
+        else:
+            count += 1
+            newcount += 1
+
+    print "polygon count", count, " -> ", newcount
+
+    write_file("../data/kuntarajat-ok.geojson", obj)
+
+
+# return the size of polygon area
+# http://stackoverflow.com/questions/451426/how-do-i-calculate-the-surface-area-of-a-2d-polygon
+def polygon_area(coords):
+    def segments(p):
+        return zip(p, p[1:] + [p[0]])
+    return 0.5 * abs(sum(x0*y1 - x1*y0
+        for ((x0, y0), (x1, y1)) in segments(coords)))
+
+
 # build tax data: .csv -> .json
 def build_tax_data():
     lines = open("2001-2013verodata.csv").readlines()
@@ -267,6 +314,8 @@ if __name__ == '__main__':
         u"Vehmaa"]
 
         build_geojson(arealist, "../data/kuntarajat-varsinaissuomi.geojson")
+    elif cmd == "cut":
+        cut_islands()
     else:
         print "unknown command!"
 

@@ -54,7 +54,7 @@
             load_data();
         });
 
-        var options = {url_geoson: "data/kuntarajat.geojson"};
+        var options = {url_geoson: "data/kuntarajat-ok.geojson"};
         map = $("#map").mapcolorizer(options).data("mapcolorizer");
         map.init(function() {
 

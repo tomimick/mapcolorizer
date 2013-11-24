@@ -30,7 +30,7 @@
 
     function case1() {
 
-        var options = {url_geoson: "data/kuntarajat.geojson"};
+        var options = {url_geoson: "data/kuntarajat-ok.geojson"};
         var map = $("#map1").mapcolorizer(options).data("mapcolorizer");
         map.init(function() {
             map.loadData("data/2014-tulovero.json");
