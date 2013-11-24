@@ -19,7 +19,7 @@ The full sources to the demo site appear in the
 site can be run locally with the Python script `run-wwwserver.sh` in the site
 folder.
 
-![Screenshot](https://raw.github.com/tomimick/mapcolorizer/master/screenshot.png)
+![Screenshot](https://raw.github.com/tomimick/mapcolorizer/master/site/img/screenshot.png)
 
 
 ## Features
