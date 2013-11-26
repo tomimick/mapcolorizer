@@ -118,6 +118,28 @@ label {
     -moz-transform: translate(0,0);
 }
 
+#gear {
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 100px;
+    height: 100px;
+    background: #F3F3F3;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#gear img {
+    position: absolute;
+    bottom: 5px;
+    left: 35px;
+    width: 30px;
+    height: 30px;
+    opacity: 0.3;
+}
+#gear img:hover {
+    opacity: 0.7;
+}
+
 /* dev.html */
 
 .case {
