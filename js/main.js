@@ -170,7 +170,7 @@
     }
 
     function select_tile_server() {
-        $("#overlaytype option[value=mapquest]").prop('selected', true);
+        $("#overlaytype option[value=osm]").prop('selected', true);
         $("#overlaytype").change();
     }
 
